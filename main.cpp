@@ -166,28 +166,6 @@ int main(int argc, char *argv[])
 
     // We're done using the camera. Other applications can now use it
     cvReleaseCapture(&capture);
-//    return 0;
-//    cv::VideoCapture camera;
-//    camera.open(0);
-//    if (!camera.isOpened()){
-//        std::cerr<<"Couldn't open cam"<<std::endl;
-//        exit(1);
-//    }
-//    camera.set(CV_CAP_PROP_FRAME_WIDTH, 640);
-//    camera.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
-
-//    while (true) {
-//        cv::Mat cameraFrame;
-//        camera>>cameraFrame;
-//        if (cameraFrame.empty()){
-//            std::cerr<<"No frame from camera"<<std::endl;
-//            exit(1);
-//        }
-//        imshow("Camera", cameraFrame);
-
-//        char keypress = cv::waitKey(20);
-//        if (keypress==27) break;
-//    }
 
     QApplication app(argc, argv);
     GLRender viewer( 0, Qt::Window );

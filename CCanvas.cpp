@@ -23,11 +23,12 @@ void setLightCoords(int x, int y){
 
 void CCanvas::initializeGL()
 {
-    glClearColor(0.5f, 0.5f, 0.0f, 0.5f);			          // Black Background
-    glClearDepth(1.0f);									                // Depth Buffer Setup
-    glEnable(GL_DEPTH_TEST);							              // Enables Depth Testing
-    glDepthFunc(GL_LEQUAL);								              // The Type Of Depth Testing To Do
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+    printf("initializeGL\n");
+    glClearColor(0.5f, 0.5f, 0.0f, 0.5f);   // Background color
+    glClearDepth(1.0f);                     // Depth Buffer Setup
+    glEnable(GL_DEPTH_TEST);                // Enables Depth Testing
+    glDepthFunc(GL_LEQUAL);                 // The Type Of Depth Testing To Do
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  // Really Nice Perspective Calculations
     glEnable( GL_NORMALIZE );
     glEnable( GL_RESCALE_NORMAL );
 

@@ -3,6 +3,7 @@
 # Project created by QtCreator 2013-12-09T17:27:45
 #
 #-------------------------------------------------
+
 HEADERS += ./Base.h \
     ./CCanvas.h \
     ./ColorDef.h \
@@ -24,7 +25,6 @@ CONFIG += release
 CONFIG += console
 
 TEMPLATE = app
-#TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 #INCLUDEPATH += /usr/local/include
@@ -39,7 +39,7 @@ MOC_DIR = mocs
 UI_DIR = uis
 
 # Input
-include(GLRender.pri)
+#include(GLRender.pri)
 
 mac: LIBS += -framework GLUT
 else:unix|win32: LIBS += -lGLUT
@@ -72,19 +72,3 @@ TEMPLATE = app
 #unix|win32: LIBS += -lopencv_superres
 #unix|win32: LIBS += -lopencv_video
 #unix|win32: LIBS += -lopencv_videostab
-
-HEADERS += \
-    Base.h \
-    Sphere.h \
-    Point3.h \
-    Point2.h \
-    GLRender.h \
-    CCanvas.h
-
-OTHER_FILES += \
-    GLRender.pro.user \
-    GLRender.app \
-    eyez.pro.user
-
-FORMS += \
-    GLRender.ui
