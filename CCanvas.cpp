@@ -1,6 +1,7 @@
 #include "CCanvas.h"
 #include "Base.h"
 #include "Sphere.h"
+#include "CamCapturer.h"
 #include <math.h>
 
 #include <OpenGL/gl.h>
@@ -10,12 +11,10 @@
 using namespace std;
 
 //-----------------------------------------------------------------------------
-GLfloat lightX;
-GLfloat lightY;
 
-void setLightCoords(int x, int y){
-    lightX = (double)x;
-    lightY = (double)y;
+void convertLightCoords(int x, int y){
+//    lightX = (double)x;
+//    lightY = (double)y;
     cout<<"mouse posn ("<<x<<","<<y<<")"<<endl;
 }
 //glut:glutPassiveMotionFunc(setLightCoords);
@@ -24,6 +23,7 @@ void setLightCoords(int x, int y){
 void CCanvas::initializeGL()
 {
     printf("initializeGL\n");
+    cout<<"xy "<<camCapturer.getCoordinates()<<endl;
     glClearColor(0.5f, 0.5f, 0.0f, 0.5f);   // Background color
     glClearDepth(1.0f);                     // Depth Buffer Setup
     glEnable(GL_DEPTH_TEST);                // Enables Depth Testing
@@ -185,6 +185,8 @@ double irisTau = 0.22;
 
 void CCanvas::paintGL()
 {
+    cout<<"xy "<<camCapturer.getCoordinates()<<endl;
+
     GLfloat lightPosition[] = {};
     glLightfv( GL_LIGHT0, GL_POSITION, lightPosition );
 

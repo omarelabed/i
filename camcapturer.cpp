@@ -85,8 +85,8 @@ float *CamCapturer::getCoordinates(){
     double relY = (double)posY/(double)frameSize.height;
 
     // Print it out for debugging purposes
-    printf("position (%d,%d)", posX, posY);
-    printf(" -- relative posn: (%f,%f)\n", relX, relY);
+//    printf("position (%d,%d)", posX, posY);
+//    printf(" -- relative posn: (%f,%f)\n", relX, relY);
 
     // We want to draw a line only if its a valid position
     if(lastX>0 && lastY>0 && posX>0 && posY>0)

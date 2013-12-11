@@ -10,6 +10,7 @@
 #include <QTimer>
 
 #include "Base.h"
+#include "CamCapturer.h"
 
 using namespace std;
 
@@ -59,6 +60,8 @@ private:
   vector< Triangle > t;
 
   double tau;
+
+  CamCapturer camCapturer;
 
 };
 #endif
