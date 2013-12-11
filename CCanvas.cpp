@@ -35,7 +35,7 @@ void CCanvas::initializeGL()
     GLfloat ambient[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat position[] = {lightX, lightY, 1.0, 1.0};
+    GLfloat position[] = {0.0, 0.0, 1.0, 1.0};
 
     glShadeModel( GL_SMOOTH );
 
@@ -185,6 +185,9 @@ double irisTau = 0.22;
 
 void CCanvas::paintGL()
 {
+    GLfloat lightPosition[] = {};
+    glLightfv( GL_LIGHT0, GL_POSITION, lightPosition );
+
     // clear screen and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
