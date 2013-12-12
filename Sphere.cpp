@@ -35,7 +35,7 @@ void Sphere::changeTexture(int light){
     glEnable(GL_TEXTURE_2D);
     QImage img;
     if(light==0){
-    if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ.jpg")){
+    if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/<<circ.jpg")){
         qWarning("ERROR in loading texture");
     }}else if(light==2){
         if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ1.jpg")){

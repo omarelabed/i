@@ -17,9 +17,11 @@ private:
     void build();
     void buildSegment(const int &index, const float &phiStep);
     void set(const Point3d &p, const Point2d &t, PointArray &segment, TextureArray &txt) const;
+    GLuint name;
 
 public:
     Sphere(const int &lats=20, const int &longs=10);
+    void changeTexture(int light);
 
     void draw();
 };
