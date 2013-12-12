@@ -288,7 +288,7 @@ void CCanvas::paintGL()
     double iris;
 
     if (seesStuff){
-        iris = 0.44;
+        iris = 0.33;
     } else {
         iris = 0.22;
     }
