@@ -182,13 +182,13 @@ void CCanvas::resizeGL(int width, int height)
 bool increasing = true;
 double pace = 3.0;
 double irisTau = 0.22;
-int draw=5;
-
+int lastxAng=0;
+int lastyAng=0;
 void CCanvas::paintGL()
 {
     GLfloat relX = camCapturer.getCoordinates()[0];
     GLfloat relY = camCapturer.getCoordinates()[1];
-    cout<<"("<<relX<<","<<relY<<")"<<endl;
+    //cout<<"("<<relX<<","<<relY<<")"<<endl;
 
     //    GLfloat ambient[] = { 1.0, 1.0, 1.0, 1.0 };
     //    GLfloat diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -213,8 +213,8 @@ void CCanvas::paintGL()
 
     // set up a sphere
     Sphere sphere1 (80,40);
-    Sphere sphere2 (80,40);
-    Sphere sphere3 (80,40);
+   // Sphere sphere2 (80,40);
+    //Sphere sphere3 (80,40);
 
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_ambient[] = { 0.20, 0.20, 0.20, 1.0 };
@@ -232,12 +232,9 @@ void CCanvas::paintGL()
     glTranslated (0.0, 0.0, -5.0);
     glScaled (2.0, 2.0, 2.0);
    // glRotated ( 90, 0,1,0 );
-
     bool seesStuff = false;
-    if  (relX>1||relY>1){
-       // cout<<"rx="<<relX<<endl;
-        //cout<<"ry="<<relY<<endl;
-    }
+
+
     if (relX>=0 && relY>=0){
         seesStuff = true;
         Point2d lookAtPoint = Point2d(800.0*relX, 600.0*relY);
@@ -249,8 +246,30 @@ void CCanvas::paintGL()
         //cout<<"yAng="<<yAng<<endl;
         glRotated ( xAng+90, 0,1,0 );
         glRotated ( -yAng-10.0, 0,0,1 );
-    }else
-        glRotated ( 90, 0,1,0 );
+        lastxAng=xAng;
+        lastyAng=yAng;
+    }else{
+
+        if(lastxAng>1){
+        lastxAng-=3;}
+        else if(lastxAng<-1){
+        lastxAng+=3;
+        }
+        else{
+        lastxAng=0;
+        }
+        if(lastyAng>-9){
+        lastyAng-=3;}
+        else if(lastyAng<-11){
+        lastyAng+=3;}
+        else{
+        lastyAng=-10;
+        }
+
+        glRotated ( lastxAng+90, 0,1,0 );
+        glRotated (-lastyAng-10.0, 0,0,1 );
+    }
+
     //    glRotated ( tau, 0,1,0 );
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
