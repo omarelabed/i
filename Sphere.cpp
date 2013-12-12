@@ -7,8 +7,15 @@ Sphere::Sphere(const int &lats, const int &longs)
 {
     glEnable(GL_TEXTURE_2D);
     QImage img;
-    if (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ.jpg")){
-        qWarning("ERROR in loading texture");
+    QDir currentDir = QDir::currentPath();
+    QString currentPath = currentDir.absolutePath();
+    QDir rootDir = currentDir.root();
+    QString rootPath = rootDir.absolutePath();
+    if (!img.load(QString("../../../../i/img/circ0.jpg"))){
+//        std::cout<<QDir::currentPath()<<endl;
+        qWarning("err: can't load img");
+        qWarning(currentPath.toLatin1());
+//        qWarning(rootPath.toLatin1());
     }
     img=QGLWidget::convertToGLFormat(img);
     glGenTextures(1, &name);
