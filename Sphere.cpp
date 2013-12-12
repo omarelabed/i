@@ -5,6 +5,21 @@
 Sphere::Sphere(const int &lats, const int &longs)
     :lats(lats), longs(longs)
 {
+    glEnable(GL_TEXTURE_2D);
+    QImage img;
+    if (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ.jpg")){
+        qWarning("ERROR in loading texture");
+    }
+    img=QGLWidget::convertToGLFormat(img);
+    glGenTextures(1, &name);
+    glBindTexture(GL_TEXTURE_2D, name);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA, img.width(), img.height(),0,GL_RGBA, GL_UNSIGNED_BYTE,img.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,name);
     build();
 }
 
@@ -16,6 +31,42 @@ void Sphere::build()
         buildSegment(i,step);
 }
 
+void Sphere::changeTexture(int light){
+    glEnable(GL_TEXTURE_2D);
+    QImage img;
+    if(light==0){
+    if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ.jpg")){
+        qWarning("ERROR in loading texture");
+    }}else if(light==2){
+        if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ1.jpg")){
+            qWarning("ERROR in loading texture");
+        }}else if(light==3){
+        if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ2.jpg")){
+            qWarning("ERROR in loading texture");
+        }}else if(light==4){
+        if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ3.jpg")){
+            qWarning("ERROR in loading texture");
+        }}else if(light==5){
+        if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ4.jpg")){
+            qWarning("ERROR in loading texture");
+        }}else if(light==6){
+        if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ5.jpg")){
+            qWarning("ERROR in loading texture");
+        }}else{
+        if  (!img.load("/Users/giuseppemendola/Desktop/courses/semester7/graphics/project/img/circ6.jpg")){
+            qWarning("ERROR in loading texture");
+    }}
+    img=QGLWidget::convertToGLFormat(img);
+    glGenTextures(1, &name);
+    glBindTexture(GL_TEXTURE_2D, name);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA, img.width(), img.height(),0,GL_RGBA, GL_UNSIGNED_BYTE,img.bits());
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,name);
+}
 
 void Sphere::buildSegment(const int &index, const float &phiStep)
 {
@@ -62,10 +113,12 @@ void Sphere::draw()
 {
     //glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 
+
     for(unsigned int i=0;i<strips.size();++i)
     {
         const PointArray &segment=strips[i];
         const TextureArray &txt=textures[i];
+
 
         glBegin(GL_TRIANGLE_STRIP);
         for(unsigned int j=0;j<segment.size();++j)
