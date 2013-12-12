@@ -13,8 +13,8 @@ using namespace std;
 //-----------------------------------------------------------------------------
 
 void convertLightCoords(int x, int y){
-//    lightX = (double)x;
-//    lightY = (double)y;
+    //    lightX = (double)x;
+    //    lightY = (double)y;
     cout<<"mouse posn ("<<x<<","<<y<<")"<<endl;
 }
 //glut:glutPassiveMotionFunc(setLightCoords);
@@ -24,7 +24,7 @@ void CCanvas::initializeGL()
 {
     printf("initializeGL\n");
     cout<<"xy "<<camCapturer.getCoordinates()<<endl;
-    glClearColor(0.5f, 0.5f, 0.0f, 0.5f);   // Background color
+    glClearColor(0.0f, 0.0f, 0.0f, 0.5f);   // Background color
     glClearDepth(1.0f);                     // Depth Buffer Setup
     glEnable(GL_DEPTH_TEST);                // Enables Depth Testing
     glDepthFunc(GL_LEQUAL);                 // The Type Of Depth Testing To Do
@@ -185,10 +185,22 @@ double irisTau = 0.22;
 
 void CCanvas::paintGL()
 {
-    cout<<"xy "<<camCapturer.getCoordinates()<<endl;
+    GLfloat relX = camCapturer.getCoordinates()[0];
+    GLfloat relY = camCapturer.getCoordinates()[1];
+    cout<<"("<<relX<<","<<relY<<")"<<endl;
 
-    GLfloat lightPosition[] = {};
-    glLightfv( GL_LIGHT0, GL_POSITION, lightPosition );
+    //    GLfloat ambient[] = { 1.0, 1.0, 1.0, 1.0 };
+    //    GLfloat diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+    //    GLfloat specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    //    GLfloat newposition[] = {0.0, 0.0, 0.0, 1.0};
+
+    //    glShadeModel( GL_SMOOTH );
+
+    //    glLightfv( GL_LIGHT0, GL_AMBIENT, ambient );
+    //    glLightfv( GL_LIGHT0, GL_DIFFUSE, diffuse );
+    //    glLightfv( GL_LIGHT0, GL_SPECULAR, specular );
+    //    glLightfv( GL_LIGHT0, GL_POSITION, newPosition );
+
 
     // clear screen and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -218,7 +230,20 @@ void CCanvas::paintGL()
     // transform and draw sphere
     glTranslated (0.0, 0.0, -5.0);
     glScaled (2.0, 2.0, 2.0);
-    glRotated ( tau, 0,1,0 );
+
+    bool seesStuff = false;
+    if (relX>=0 || relY>=0){
+        seesStuff = true;
+        Point2d lookAtPoint = Point2d(800.0*relX, 600.0*relY);
+        float xAng = atan((400.0-lookAtPoint.x())/1200.0);
+        float yAng = atan((300.0-lookAtPoint.y())/900.0);
+        xAng = xAng*180.0/PI;
+        yAng = yAng*180.0/PI;
+        glRotated ( xAng, 0,1,0 );
+        glRotated ( -yAng-10.0, 1,0,0 );
+
+    }
+    //    glRotated ( tau, 0,1,0 );
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     sphere1.draw();
@@ -260,8 +285,14 @@ void CCanvas::paintGL()
     // transform and draw sphere
     // glRotated ( tau, 0,1,0 );
     glTranslated (0.0, 0.0, 0.96);
-    double iris = 0.22*tau/100.0;
-    if (iris < 0.11) iris=0.11;
+    double iris;
+
+    if (seesStuff){
+        iris = 0.44;
+    } else {
+        iris = 0.22;
+    }
+    //    if (iris < 0.11) iris=0.11;
     glScaled (iris, iris, 0.1);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

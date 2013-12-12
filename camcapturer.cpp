@@ -25,10 +25,11 @@ IplImage* CamCapturer::getThresholdedImage(IplImage* img)
     // Convert the image into an HSV image
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
+//    cvCvtColor(img, imgHSV, CV_BGR2RGB);
 
     IplImage* imgThreshed = cvCreateImage(cvGetSize(img), 8, 1);
 
-    cvInRangeS(imgHSV, cvScalar(0, 0, 250), cvScalar(0, 0, 360), imgThreshed);
+    cvInRangeS(imgHSV, cvScalar(40, 100, 100), cvScalar(65, 255, 255), imgThreshed);
 
     cvReleaseImage(&imgHSV);
 
