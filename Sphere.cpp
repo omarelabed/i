@@ -11,11 +11,9 @@ Sphere::Sphere(const int &lats, const int &longs)
     QString currentPath = currentDir.absolutePath();
     QDir rootDir = currentDir.root();
     QString rootPath = rootDir.absolutePath();
-    if (!img.load(QString("../../../../i/img/circ0.jpg"))){
-//        std::cout<<QDir::currentPath()<<endl;
+    if (!img.load(QString("../../../../i/Eyes/circ1.jpg"))){
         qWarning("err: can't load img");
         qWarning(currentPath.toLatin1());
-//        qWarning(rootPath.toLatin1());
     }
     img=QGLWidget::convertToGLFormat(img);
     glGenTextures(1, &name);
