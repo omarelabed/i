@@ -7,8 +7,8 @@ CamCapturer::CamCapturer(){
     // Initialize capturing live feed from the camera
     capture = cvCaptureFromCAM(0);
     imgScribble = NULL;
-    cvNamedWindow("video");
-    cvNamedWindow("thresh");
+//    cvNamedWindow("video");
+//    cvNamedWindow("thresh");
 }
 
 CamCapturer::~CamCapturer(){
@@ -85,21 +85,21 @@ float *CamCapturer::getCoordinates(){
     double relX = (double)posX/(double)frameSize.width;
     double relY = (double)posY/(double)frameSize.height;
 
-    // Print it out for debugging purposes
-//    printf("position (%d,%d)", posX, posY);
-//    printf(" -- relative posn: (%f,%f)\n", relX, relY);
+//    // Print it out for debugging purposes
+// //    printf("position (%d,%d)", posX, posY);
+// //    printf(" -- relative posn: (%f,%f)\n", relX, relY);
 
-    // We want to draw a line only if its a valid position
-    if(lastX>0 && lastY>0 && posX>0 && posY>0)
-    {
-        // Draw a yellow line from the previous point to the current point
-        cvLine(imgScribble, cvPoint(posX, posY), cvPoint(lastX, lastY), cvScalar(0,255,255), 5);
-    }
+//    // We want to draw a line only if its a valid position
+//    if(lastX>0 && lastY>0 && posX>0 && posY>0)
+//    {
+//        // Draw a yellow line from the previous point to the current point
+//        cvLine(imgScribble, cvPoint(posX, posY), cvPoint(lastX, lastY), cvScalar(0,255,255), 5);
+//    }
 
-    // Add the scribbling image and the frame... and we get a combination of the two
-    cvAdd(frame, imgScribble, frame);
-    cvShowImage("thresh", imgLightThresh);
-    cvShowImage("video", frame);
+//    // Add the scribbling image and the frame... and we get a combination of the two
+//    cvAdd(frame, imgScribble, frame);
+//    cvShowImage("thresh", imgLightThresh);
+//    cvShowImage("video", frame);
 
     float xy[] = {relX, relY};
     return xy;

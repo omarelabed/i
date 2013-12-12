@@ -23,7 +23,7 @@ void convertLightCoords(int x, int y){
 void CCanvas::initializeGL()
 {
     printf("initializeGL\n");
-    cout<<"xy "<<camCapturer.getCoordinates()<<endl;
+   // cout<<"xy "<<camCapturer.getCoordinates()<<endl;
     glClearColor(0.0f, 0.0f, 0.0f, 0.5f);   // Background color
     glClearDepth(1.0f);                     // Depth Buffer Setup
     glEnable(GL_DEPTH_TEST);                // Enables Depth Testing
@@ -182,6 +182,7 @@ void CCanvas::resizeGL(int width, int height)
 bool increasing = true;
 double pace = 3.0;
 double irisTau = 0.22;
+int draw=5;
 
 void CCanvas::paintGL()
 {
@@ -230,73 +231,80 @@ void CCanvas::paintGL()
     // transform and draw sphere
     glTranslated (0.0, 0.0, -5.0);
     glScaled (2.0, 2.0, 2.0);
+   // glRotated ( 90, 0,1,0 );
 
     bool seesStuff = false;
-    if (relX>=0 || relY>=0){
+    if  (relX>1||relY>1){
+       // cout<<"rx="<<relX<<endl;
+        //cout<<"ry="<<relY<<endl;
+    }
+    if (relX>=0 && relY>=0){
         seesStuff = true;
         Point2d lookAtPoint = Point2d(800.0*relX, 600.0*relY);
         float xAng = atan((400.0-lookAtPoint.x())/1200.0);
         float yAng = atan((300.0-lookAtPoint.y())/900.0);
         xAng = xAng*180.0/PI;
         yAng = yAng*180.0/PI;
-        glRotated ( xAng, 0,1,0 );
-        glRotated ( -yAng-10.0, 1,0,0 );
-
-    }
+        //cout<<"xAng="<<xAng<<endl;
+        //cout<<"yAng="<<yAng<<endl;
+        glRotated ( xAng+90, 0,1,0 );
+        glRotated ( -yAng-10.0, 0,0,1 );
+    }else
+        glRotated ( 90, 0,1,0 );
     //    glRotated ( tau, 0,1,0 );
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     sphere1.draw();
 
-    Point2d c = Point2d(80, 80);
+//    Point2d c = Point2d(80, 80);
 
-    GLfloat mat_emission2[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient2[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_diffuse2[] = { 0.0, 0.0, 0.5, 1.0 };
-    GLfloat mat_specular2[] = { 0.2,0.2, 0.6, 1.0 };
-    GLfloat shininess2 = 80.0;
+//    GLfloat mat_emission2[] = {0.0, 0.0, 0.0, 0.0};
+//    GLfloat mat_ambient2[] = { 0.0, 0.0, 0.0, 1.0 };
+//    GLfloat mat_diffuse2[] = { 0.0, 0.0, 0.5, 1.0 };
+//    GLfloat mat_specular2[] = { 0.2,0.2, 0.6, 1.0 };
+//    GLfloat shininess2 = 80.0;
 
-    glMaterialfv( GL_FRONT, GL_EMISSION, mat_emission2 );
-    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient2 );
-    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse2 );
-    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular2 );
-    glMaterialf ( GL_FRONT, GL_SHININESS, shininess2 );
+//    glMaterialfv( GL_FRONT, GL_EMISSION, mat_emission2 );
+//    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient2 );
+//    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse2 );
+//    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular2 );
+//    glMaterialf ( GL_FRONT, GL_SHININESS, shininess2 );
 
-    // transform and draw sphere
-    // glRotated ( tau, 0,1,0 );
-    glTranslated (0.0, 0.0, 0.85);
-    glScaled (0.44, 0.44, 0.2);
+//    // transform and draw sphere
+//    // glRotated ( tau, 0,1,0 );
+//    glTranslated (0.0, 0.0, 0.85);
+//    glScaled (0.44, 0.44, 0.2);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    sphere2.draw();
+    //sphere2.draw();
 
-    GLfloat mat_emission3[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient3[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_diffuse3[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat mat_specular3[] = { 0.2,0.2, 0.2, 1.0 };
-    GLfloat shininess3 = 80.0;
+//    GLfloat mat_emission3[] = {0.0, 0.0, 0.0, 0.0};
+//    GLfloat mat_ambient3[] = { 0.0, 0.0, 0.0, 1.0 };
+//    GLfloat mat_diffuse3[] = { 0.0, 0.0, 0.0, 1.0 };
+//    GLfloat mat_specular3[] = { 0.2,0.2, 0.2, 1.0 };
+//    GLfloat shininess3 = 80.0;
 
-    glMaterialfv( GL_FRONT, GL_EMISSION, mat_emission3 );
-    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient3 );
-    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse3 );
-    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular3 );
-    glMaterialf ( GL_FRONT, GL_SHININESS, shininess3 );
+//    glMaterialfv( GL_FRONT, GL_EMISSION, mat_emission3 );
+//    glMaterialfv( GL_FRONT, GL_AMBIENT, mat_ambient3 );
+//    glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse3 );
+//    glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular3 );
+//    glMaterialf ( GL_FRONT, GL_SHININESS, shininess3 );
 
     // transform and draw sphere
     // glRotated ( tau, 0,1,0 );
-    glTranslated (0.0, 0.0, 0.96);
-    double iris;
+//    glTranslated (0.0, 0.0, 0.96);
+//    double iris;
 
-    if (seesStuff){
-        iris = 0.33;
-    } else {
-        iris = 0.22;
-    }
+//    if (seesStuff){
+//        iris = 0.33;
+//    } else {
+//        iris = 0.22;
+//    }
     //    if (iris < 0.11) iris=0.11;
-    glScaled (iris, iris, 0.1);
+  //  glScaled (iris, iris, 0.1);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    sphere3.draw();
+  //  sphere3.draw();
 
     if (increasing && tau==90){
         increasing = false;

@@ -27,7 +27,7 @@ public:
   {
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
-    timer->start(10);
+    timer->start(100);
   };
 
 protected:
