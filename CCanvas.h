@@ -67,6 +67,7 @@ private:
   Cam cam;
 
   Eye* eye0;
+  Eye* eye1;
 
 };
 #endif

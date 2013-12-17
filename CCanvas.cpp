@@ -25,6 +25,7 @@ void convertLightCoords(int x, int y){
 void CCanvas::initializeGL()
 {
     eye0 = new Eye(80,40);
+    eye1 = new Eye(80,40);
     printf("initializeGL\n");
    // cout<<"xy "<<camCapturer.getCoordinates()<<endl;
     glClearColor(0.0f, 0.0f, 0.0f, 0.5f);   // Background color
@@ -187,7 +188,8 @@ double pace = 3.0;
 double irisTau = 0.22;
 int lastxAng=0;
 int lastyAng=0;
-GLfloat relY_light = 0.5;
+GLfloat relY_light = 0.3;
+GLfloat lastRely=relY_light;
 
 void CCanvas::paintGL()
 {
@@ -195,8 +197,8 @@ void CCanvas::paintGL()
     GLfloat relX = cam.relX_0;
     GLfloat relY = cam.relY_0;
     GLfloat yy = cam.relY_1;
-    if (yy>0.0 && yy<0.7)
-        relY_light = 1.0-yy+0.2;
+    if (yy>0.0 && yy<1.0)
+        relY_light = 1.3-yy;
 //    GLfloat relX = camCapturer.getCoordinates()[0];
 //    GLfloat relY = camCapturer.getCoordinates()[1];
     //cout<<"("<<relX<<","<<relY<<")"<<endl;
@@ -235,11 +237,11 @@ void CCanvas::paintGL()
     glMaterialfv( GL_FRONT, GL_DIFFUSE, mat_diffuse );
     glMaterialfv( GL_FRONT, GL_SPECULAR, mat_specular );
     glMaterialf ( GL_FRONT, GL_SHININESS, shininess );
-
+    glLoadIdentity();
     // transform and draw sphere
-    glTranslated (0.0, 0.0, -5.0);
+    glTranslated (-2.0, 0.0, -5.0);
     glScaled (2.0, 2.0, 2.0);
-   // glRotated ( 90, 0,1,0 );
+    //glRotated ( 90, 0,1,0 );
     bool seesStuff = false;
 
 
@@ -252,7 +254,7 @@ void CCanvas::paintGL()
         yAng = yAng*180.0/PI;
         //cout<<"xAng="<<xAng<<endl;
         //cout<<"yAng="<<yAng<<endl;
-        glRotated ( xAng+90, 0,1,0 );
+        glRotated ( xAng+105, 0,1,0 );
         glRotated ( -yAng-10.0, 0,0,1 );
         lastxAng=xAng;
         lastyAng=yAng;
@@ -274,13 +276,26 @@ void CCanvas::paintGL()
         lastyAng=-10;
         }
 
-        glRotated ( lastxAng+90, 0,1,0 );
+        glRotated ( lastxAng+105, 0,1,0 );
         glRotated (-lastyAng-10.0, 0,0,1 );
     }
 
     //    glRotated ( tau, 0,1,0 );
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    float pupilSize=(relY_light-0.3)*10;
+
+    pupilSize=(pupilSize*1.77);
+    std::cout<<relY_light<<endl;
+    std::cout<<pupilSize<<endl;
+    if (pupilSize>15){
+        pupilSize=15;
+    }
+    if (lastRely!=relY_light){
+        eye0->changeTexture(pupilSize);
+        lastRely=relY_light;
+    }
+
     eye0->draw();
 
 //    Point2d c = Point2d(80, 80);
@@ -299,8 +314,46 @@ void CCanvas::paintGL()
 
 //    // transform and draw sphere
 //    // glRotated ( tau, 0,1,0 );
-//    glTranslated (0.0, 0.0, 0.85);
-//    glScaled (0.44, 0.44, 0.2);
+    glLoadIdentity();
+    glTranslated (2.0, 0.0, -5.0);
+    glScaled (2.0, 2.0, 2.0);
+
+    if (relX>=0 && relY>=0){
+        seesStuff = true;
+        Point2d lookAtPoint = Point2d(800.0*relX, 600.0*relY);
+        float xAng = atan((400.0-lookAtPoint.x())/1200.0);
+        float yAng = atan((300.0-lookAtPoint.y())/900.0);
+        xAng = xAng*180.0/PI;
+        yAng = yAng*180.0/PI;
+        //cout<<"xAng="<<xAng<<endl;
+        //cout<<"yAng="<<yAng<<endl;
+        glRotated ( xAng+75, 0,1,0 );
+        glRotated ( -yAng-10.0, 0,0,1 );
+        lastxAng=xAng;
+        lastyAng=yAng;
+    }else{
+
+        if(lastxAng>1){
+        lastxAng-=3;}
+        else if(lastxAng<-1){
+        lastxAng+=3;
+        }
+        else{
+        lastxAng=0;
+        }
+        if(lastyAng>-9){
+        lastyAng-=3;}
+        else if(lastyAng<-11){
+        lastyAng+=3;}
+        else{
+        lastyAng=-10;
+        }
+
+        glRotated ( lastxAng+75, 0,1,0 );
+        glRotated (-lastyAng-10.0, 0,0,1 );
+    }
+
+    eye1->draw();
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     //sphere2.draw();

@@ -7,7 +7,7 @@
 {
     QImage img;
     glEnable(GL_TEXTURE_2D);
-    if (!img.load(QString("../../../../i/Eyes/circ16.jpg"))){
+    if (!img.load(QString("../../../../i/Eyes/circ1.jpg"))){
               qWarning("image not loaded");
             }
 
@@ -40,52 +40,52 @@ void Eye::changeTexture(int light){
     glEnable(GL_TEXTURE_2D);
     QImage img;
     switch(light){
-    case(1):
+    case(15):
         img.load(QString("../../../../i/Eyes/circ16.jpg"));
         break;
-    case(2):
+    case(14):
         img.load(QString("../../../../i/Eyes/circ15.jpg"));
          break;
-    case(3):
+    case(13):
         img.load(QString("../../../../i/Eyes/circ14.jpg"));
          break;
-    case(4):
+    case(12):
         img.load(QString("../../../../i/Eyes/circ13.jpg"));
          break;
-    case(5):
+    case(11):
         img.load(QString("../../../../i/Eyes/circ12.jpg"));
          break;
-    case(6):
+    case(10):
         img.load(QString("../../../../i/Eyes/circ11.jpg"));
          break;
-    case(7):
+    case(9):
         img.load(QString("../../../../i/Eyes/circ10.jpg"));
          break;
     case(8):
         img.load(QString("../../../../i/Eyes/circ9.jpg"));
         break;
-    case(9):
+    case(7):
         img.load(QString("../../../../i/Eyes/circ8.jpg"));
         break;
-    case(10):
+    case(6):
         img.load(QString("../../../../i/Eyes/circ7.jpg"));
         break;
-    case(11):
+    case(5):
         img.load(QString("../../../../i/Eyes/circ6.jpg"));
         break;
-    case(12):
+    case(4):
         img.load(QString("../../../../i/Eyes/circ5.jpg"));
         break;
-    case(13):
+    case(3):
         img.load(QString("../../../../i/Eyes/circ4.jpg"));
         break;
-    case(14):
+    case(2):
         img.load(QString("../../../../i/Eyes/circ3.jpg"));
         break;
-    case(15):
+    case(1):
         img.load(QString("../../../../i/Eyes/circ2.jpg"));
         break;
-    case(16):
+    case(0):
         img.load(QString("../../../../i/Eyes/circ1.jpg"));
         break;
     }
