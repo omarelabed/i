@@ -1,6 +1,7 @@
 #include "Sphere.h"
 #include "Base.h"
-#include <math.h>
+//#include <math.h>
+#include <cmath>
 
 Sphere::Sphere(const int &lats, const int &longs)
     :lats(lats), longs(longs)

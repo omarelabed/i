@@ -11,7 +11,8 @@ Comment:  This file contains all basic definitions.
 // STL includes
 #include <iostream>
 #include <assert.h>
-#include <math.h>
+//#include <math.h>
+#include <cmath>
 #include <vector>
 #include <algorithm>
 #include <float.h>

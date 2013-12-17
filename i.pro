@@ -11,14 +11,18 @@ HEADERS += ./Base.h \
     ./Point3.h \
     ./GLRender.h \
     ./Sphere.h \
-    CamCapturer.h
+    CamCapturer.h \
+    Cam.h \
+    Eye.h
 
 #Source files
 SOURCES += ./main.cpp \
     ./CCanvas.cpp \
     ./GLRender.cpp \
     ./Sphere.cpp \
-    CamCapturer.cpp
+    CamCapturer.cpp \
+    Cam.cpp \
+    Eye.cpp
 
 #Forms
 FORMS += ./GLRender.ui

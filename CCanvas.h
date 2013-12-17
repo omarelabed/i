@@ -11,6 +11,8 @@
 
 #include "Base.h"
 #include "CamCapturer.h"
+#include "Cam.h"
+#include "Eye.h"
 
 using namespace std;
 
@@ -61,7 +63,10 @@ private:
 
   double tau;
 
-  CamCapturer camCapturer;
+//  CamCapturer camCapturer;
+  Cam cam;
+
+  Eye* eye0;
 
 };
 #endif

@@ -290,10 +290,10 @@ public:
   * @param s - the stream
   * @param p - the point
   */
-  friend std::ostream& operator << ( std::ostream& s, const Point3d& p )  {    
-    s  << p.x() << "," << p.y()<< "," <<p.z() << std::endl;
-    return s;
-  };
+//  friend std::ostream& operator << ( std::ostream& s, const Point3d& p )  {
+//    s  << p.x() << "," << p.y()<< "," <<p.z() << std::endl;
+//    return s;
+//  };
 
 
 //-----------------------------------------------------------------------------

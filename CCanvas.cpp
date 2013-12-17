@@ -2,7 +2,9 @@
 #include "Base.h"
 #include "Sphere.h"
 #include "CamCapturer.h"
-#include <math.h>
+#include "Eye.h"
+//#include <math.h>
+#include <cmath>
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -22,6 +24,7 @@ void convertLightCoords(int x, int y){
 
 void CCanvas::initializeGL()
 {
+    eye0 = new Eye(80,40);
     printf("initializeGL\n");
    // cout<<"xy "<<camCapturer.getCoordinates()<<endl;
     glClearColor(0.0f, 0.0f, 0.0f, 0.5f);   // Background color
@@ -184,22 +187,32 @@ double pace = 3.0;
 double irisTau = 0.22;
 int lastxAng=0;
 int lastyAng=0;
+GLfloat relY_light = 0.5;
+
 void CCanvas::paintGL()
 {
-    GLfloat relX = camCapturer.getCoordinates()[0];
-    GLfloat relY = camCapturer.getCoordinates()[1];
+    cam.init();
+    GLfloat relX = cam.relX_0;
+    GLfloat relY = cam.relY_0;
+    GLfloat yy = cam.relY_1;
+    if (yy>0.0 && yy<0.7)
+        relY_light = 1.0-yy+0.2;
+//    GLfloat relX = camCapturer.getCoordinates()[0];
+//    GLfloat relY = camCapturer.getCoordinates()[1];
     //cout<<"("<<relX<<","<<relY<<")"<<endl;
 
-    //    GLfloat ambient[] = { 1.0, 1.0, 1.0, 1.0 };
-    //    GLfloat diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-    //    GLfloat specular[] = { 1.0, 1.0, 1.0, 1.0 };
+        GLfloat ambient[] = { relY_light , relY_light , relY_light, 1.0 };
+        GLfloat diffuse[] = { relY_light , relY_light , relY_light, 1.0 };
+        GLfloat specular[] = { relY_light, relY_light, relY_light, 1.0 };
+//        GLfloat diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+//        GLfloat specular[] = { 1.0, 1.0, 1.0, 1.0 };
     //    GLfloat newposition[] = {0.0, 0.0, 0.0, 1.0};
 
     //    glShadeModel( GL_SMOOTH );
 
-    //    glLightfv( GL_LIGHT0, GL_AMBIENT, ambient );
-    //    glLightfv( GL_LIGHT0, GL_DIFFUSE, diffuse );
-    //    glLightfv( GL_LIGHT0, GL_SPECULAR, specular );
+        glLightfv( GL_LIGHT0, GL_AMBIENT, ambient );
+        glLightfv( GL_LIGHT0, GL_DIFFUSE, diffuse );
+        glLightfv( GL_LIGHT0, GL_SPECULAR, specular );
     //    glLightfv( GL_LIGHT0, GL_POSITION, newPosition );
 
 
@@ -210,11 +223,6 @@ void CCanvas::paintGL()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     lookAt( 0,0,0,  0,0,-1,  0,1,0 );     // camera position , "look at" point , view-up vector
-
-    // set up a sphere
-    Sphere sphere1 (80,40);
-   // Sphere sphere2 (80,40);
-    //Sphere sphere3 (80,40);
 
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_ambient[] = { 0.20, 0.20, 0.20, 1.0 };
@@ -273,7 +281,7 @@ void CCanvas::paintGL()
     //    glRotated ( tau, 0,1,0 );
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    sphere1.draw();
+    eye0->draw();
 
 //    Point2d c = Point2d(80, 80);
 
